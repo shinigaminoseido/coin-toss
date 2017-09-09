@@ -1,0 +1,55 @@
+body {
+  background: url("../_img/8bitbg.gif");
+
+}
+#app {
+  height: 100vh;
+}
+button {
+  height: 50px;
+  width: 100px;
+}
+.grid {
+  background: url("../_img/frame.png") center center no-repeat;
+  display: grid;
+  grid-template-columns: 25vw 50vw 25vw;
+  grid-template-rows: 15vh 55vh 30vh;
+  grid-template-areas: ". top ." ". mid ." ". bot .";
+}
+.top {
+  grid-area: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.mid {
+  grid-area: mid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.bot {
+  grid-area: bot;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mid > img {
+  height: 30vh;
+}
+.flipping {
+  animation-name: flip;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+}
+@keyframes flip {
+  0%,
+  100% {
+    transform: scale(1) rotateY(0deg)
+  }
+  50% {
+    transform: scale(2.5) rotateY(4320deg);
+  }
+}

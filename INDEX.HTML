@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coin Toss</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" inital-scale="1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="_css/normalize.css">
+    <link rel="stylesheet" href="_css/style.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="grid" v-if=newgame>
+        <div class="top">
+
+        </div>
+        <div class="mid">
+          <p>Lifetime results : {{ headstotal }} - {{ tailstotal }} : Lifetime results</p>
+          <p>Heads $$$$ : {{ headsmoney }} - {{ tailsmoney }} : Tails $$$$</p>
+        </div>
+        <div class="bot">
+          <button @click="game = !game; newgame = !newgame; tails = 0; heads = 0; score = 0; imgLink = '_img/side.png'">New Game</button>
+        </div>
+      </div>
+      <div class="grid" v-if="game">
+        <div class="top">
+          <p>Heads : {{ heads }} - {{ tails }} : Tails</p>
+        </div>
+        <div class="mid">
+          <img :src=imgLink :class="flip"/>
+
+        </div>
+        <div class="bot">
+          <button @click="CoinToss()" @mouseup="flip = 'flipping'" @mousedown="flip = ''">Coin Toss</button>
+          <button @click="Score(); endgame = !endgame; game = !game">Collect loot</button>
+        </div>
+      </div>
+      <div class="grid" v-if="endgame">
+        <div class="top">
+          <p>Heads : {{ heads }} - {{ tails }} : Tails</p>
+          <p>Lifetime results : {{ headstotal }} - {{ tailstotal }} : Lifetime results</p>
+        </div>
+
+        <div class="mid">
+          <p>Heads $$$$ : {{ headsmoney }} - {{ tailsmoney }} : Tails $$$$</p>
+          <p>Win : {{ winner }}</p>
+          <p>Score : {{ score }}</p>
+        </div>
+
+        <div class="bot">
+          <button @click="game = !game; endgame = !endgame">Back to tossing</button>
+          <button @click="newgame = !newgame; endgame = !endgame; Save(); flip = ''">Collect</button>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+    new Vue({
+      el: '#app',
+      data: {
+        newgame: true,
+        game: false,
+        endgame: false,
+        flip: '',
+        imgLink: '_img/side.png',
+        result: '',
+        heads: 0,
+        headstotal: 0,
+        headsmoney: 0,
+        tails: 0,
+        tailstotal: 0,
+        tailsmoney: 0,
+        score: 0,
+        winner: ''
+      },
+
+      methods: {
+        CoinToss : function(){
+          this.result =  Math.floor(Math.random() * 2 + 1 )
+          if (this.result > 1) {
+            this.result = 'Heads',
+            this.heads++
+            this.imgLink = '_img/h.png'
+          }
+          else {
+            this.result = 'Tails',
+            this.tails++
+            this.imgLink = '_img/t.png'
+          }
+        },
+        Score : function() {
+          if (this.heads > this.tails) {
+            this.winner = 'HEADS WINS',
+            this.score = this.heads * 10 + this.tails
+          }
+          else if (this.heads == this.tails) {
+            this.winner = 'DRAW',
+            this.score = this.heads + this.tails *5
+          }
+          else {
+            this.winner = 'TAILS WINS'
+            this.score = this.tails * 10 + this.heads
+          }
+        },
+        Save : function() {
+
+          this.headstotal = this.headstotal + this.heads
+          this.tailstotal = this.tailstotal + this.tails
+
+          if (this.heads > this.tails) {
+            this.headsmoney = this.headsmoney + this.score / 2
+          }
+          else if (this.heads == this.tails) {
+            this.headsmoney = this.headsmoney + this.score / 2,
+            this.tailsmoney = this.tailsmoney + this.score / 2
+          }
+          else if(this.tails > this.heads) {
+            this.tailsmoney = this.tailsmoney + this.score / 2
+          }
+        }
+      }
+    })
+    </script>
+
+  </body>
+</html>
