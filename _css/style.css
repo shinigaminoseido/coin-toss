@@ -1,7 +1,10 @@
+* {
+  text-align: center;
+}
 body {
   background: url("../_img/8bitbg.gif");
-
 }
+
 #app {
   height: 100vh;
 }
@@ -10,7 +13,6 @@ button {
   width: 100px;
 }
 .grid {
-  background: url("../_img/frame.png") center center no-repeat;
   display: grid;
   grid-template-columns: 25vw 50vw 25vw;
   grid-template-rows: 15vh 55vh 30vh;
@@ -19,25 +21,40 @@ button {
 .top {
   grid-area: top;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  justify-content: space-between;
+  border-top: 2vw solid black;
+  border-left: 2vw solid black;
+  border-right: 2vw solid black;
 }
+.top img {
+  height: 30px;
+}
+
 .mid {
   grid-area: mid;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-left: 2vw solid black;
+  border-right: 2vw solid black;
 }
+.mid > img {
+  height: 30vh;
+}
+
 .bot {
   grid-area: bot;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-left: 2vw solid black;
+  border-right: 2vw solid black;
+  border-bottom: 2vw solid black;
 }
-.mid > img {
-  height: 30vh;
+.coin-icon {
+  background: url("../_img/coin-icon.png") center center cover;
+  height: 20px;
 }
 .flipping {
   animation-name: flip;

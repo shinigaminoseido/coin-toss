@@ -12,11 +12,11 @@
     <div id="app">
       <div class="grid" v-if=newgame>
         <div class="top">
-
-        </div>
-        <div class="mid">
           <p>Lifetime results : {{ headstotal }} - {{ tailstotal }} : Lifetime results</p>
           <p>Heads $$$$ : {{ headsmoney }} - {{ tailsmoney }} : Tails $$$$</p>
+        </div>
+        <div class="mid">
+
         </div>
         <div class="bot">
           <button @click="game = !game; newgame = !newgame; tails = 0; heads = 0; score = 0; imgLink = '_img/side.png'">New Game</button>
@@ -37,12 +37,25 @@
       </div>
       <div class="grid" v-if="endgame">
         <div class="top">
-          <p>Heads : {{ heads }} - {{ tails }} : Tails</p>
-          <p>Lifetime results : {{ headstotal }} - {{ tailstotal }} : Lifetime results</p>
+          <div class="top-left">
+            <img src="_img/coin-icon.png" alt="">
+            <p>:{{ headstotal }}</p>
+            <br>
+            <img src="_img/coin-icon.png" alt="">
+            <p>:{{ headsmoney}}</p>
+          </div>
+          <div class="">
+            <p>
+              Tails total: {{ tailstotal }}<br>
+              Tails money :{{ tailsmoney }}
+            </p>
+          </div>
+
+
         </div>
 
         <div class="mid">
-          <p>Heads $$$$ : {{ headsmoney }} - {{ tailsmoney }} : Tails $$$$</p>
+          <p>Heads : {{ heads }} - {{ tails }} : Tails</p>
           <p>Win : {{ winner }}</p>
           <p>Score : {{ score }}</p>
         </div>
