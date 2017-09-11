@@ -9,61 +9,61 @@
     <link rel="stylesheet" href="_css/style.css">
   </head>
   <body>
+    <div class="background"></div>
     <div id="app">
-      <div class="grid" v-if=newgame>
-        <div class="top">
-          <p>Lifetime results : {{ headstotal }} - {{ tailstotal }} : Lifetime results</p>
-          <p>Heads $$$$ : {{ headsmoney }} - {{ tailsmoney }} : Tails $$$$</p>
-        </div>
-        <div class="mid">
 
-        </div>
-        <div class="bot">
-          <button @click="game = !game; newgame = !newgame; tails = 0; heads = 0; score = 0; imgLink = '_img/side.png'">New Game</button>
-        </div>
+      <div class="center" v-if=newgame>
+        <img class="logo" src="_img/logo.png" alt="Logo used to be here!">
+        <img class="button" src="_img/buttons/upgrades.png" @click="game = !game; upgrades = !upgrades">
+        <br>
+        <img class="button" src="_img/buttons/new-game.png" @click="game = !game; newgame = !newgame; tails = 0; heads = 0; score = 0;  flip = ''">
       </div>
-      <div class="grid" v-if="game">
-        <div class="top">
-          <p>Heads : {{ heads }} - {{ tails }} : Tails</p>
-        </div>
-        <div class="mid">
-          <img :src=imgLink :class="flip"/>
 
-        </div>
-        <div class="bot">
-          <button @click="CoinToss()" @mouseup="flip = 'flipping'" @mousedown="flip = ''">Coin Toss</button>
-          <button @click="Score(); endgame = !endgame; game = !game">Collect loot</button>
-        </div>
-      </div>
-      <div class="grid" v-if="endgame">
-        <div class="top">
-          <div class="top-left">
-            <img src="_img/coin-icon.png" alt="">
-            <p>:{{ headstotal }}</p>
+
+      <div class="gamegrid" v-if="game">
+        <div class="heads">
+          <p>
+            HEADS
             <br>
-            <img src="_img/coin-icon.png" alt="">
-            <p>:{{ headsmoney}}</p>
-          </div>
-          <div class="">
-            <p>
-              Tails total: {{ tailstotal }}<br>
-              Tails money :{{ tailsmoney }}
-            </p>
-          </div>
-
-
+            {{ heads }}
+          </p>
+          <p> <span class="coin-icon"></span>  {{ headsmoney }}</p>
+        </div>
+        <div class="tails">
+          <p>
+            TAILS
+            <br>
+            {{ tails }}
+            <br>
+            {{ tailsmoney }} <span class="coin-icon"></span>
+          </p>
         </div>
 
         <div class="mid">
-          <p>Heads : {{ heads }} - {{ tails }} : Tails</p>
-          <p>Win : {{ winner }}</p>
-          <p>Score : {{ score }}</p>
+          <img class="button end" src="_img/buttons/end-game.png" @click="Score(); endgame = !endgame; game = !game">
+          <img class="coin" :src=coinLink :class="flip"/>
+          <img class="button flip" src="_img/buttons/toss-a-coin.png" @click="CoinToss()" @mouseup="flip = 'flipping'" @mousedown="flip = ''">
         </div>
+      </div>
 
-        <div class="bot">
-          <button @click="game = !game; endgame = !endgame">Back to tossing</button>
-          <button @click="newgame = !newgame; endgame = !endgame; Save(); flip = ''">Collect</button>
-        </div>
+      <div class="center" v-if="endgame">
+        <img class="coin" :src=resultLink />
+        <br>
+        <p class="result">
+          Heads - {{ heads }} : {{ tails }} - Tails
+          <br>
+          Score : {{ score }}
+          <br>
+          Lifetime results:
+          <br>
+          {{ headstotal }} - {{ tailstotal }}
+          <br>
+          <br>
+          LOOT : {{ loot }}
+        </p>
+        <img class="button" src="_img/buttons/retry.png" @click="game = !game; endgame = !endgame; tails = 0; heads = 0; score = 0;  flip = ''">
+        <br>
+        <img class="button" src="_img/buttons/collect.png" @click="newgame = !newgame; endgame = !endgame; Save();">
       </div>
 
     </div>
@@ -76,8 +76,8 @@
         game: false,
         endgame: false,
         flip: '',
-        imgLink: '_img/side.png',
-        result: '',
+        coinLink: '_img/h.png',
+        resultLink: '_img/h.png',
         heads: 0,
         headstotal: 0,
         headsmoney: 0,
@@ -85,35 +85,39 @@
         tailstotal: 0,
         tailsmoney: 0,
         score: 0,
-        winner: ''
+        loot: 0,
       },
 
       methods: {
         CoinToss : function(){
           this.result =  Math.floor(Math.random() * 2 + 1 )
           if (this.result > 1) {
-            this.result = 'Heads',
             this.heads++
-            this.imgLink = '_img/h.png'
+            this.coinLink = '_img/h.png'
           }
           else {
-            this.result = 'Tails',
             this.tails++
-            this.imgLink = '_img/t.png'
+            this.coinLink = '_img/t.png'
           }
         },
         Score : function() {
           if (this.heads > this.tails) {
-            this.winner = 'HEADS WINS',
+            this.winner = 'HEADS WINS'
             this.score = this.heads * 10 + this.tails
+            this.loot = this.score / 2
+            this.resultLink = '_img/heads-wins.png'
           }
           else if (this.heads == this.tails) {
             this.winner = 'DRAW',
             this.score = this.heads + this.tails *5
+            this.loot = this.score / 2
+            this.resultLink = '_img/draw.png'
           }
           else {
             this.winner = 'TAILS WINS'
             this.score = this.tails * 10 + this.heads
+            this.loot = this.score / 2
+            this.resultLink = '_img/tails-wins.png'
           }
         },
         Save : function() {

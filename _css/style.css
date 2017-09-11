@@ -2,63 +2,75 @@
   text-align: center;
 }
 body {
-  background: url("../_img/8bitbg.gif");
+  background-image: url("../_img/test-bg.png");
+  background-size: 100% 100%;
 }
 
 #app {
   height: 100vh;
-}
-button {
-  height: 50px;
-  width: 100px;
-}
-.grid {
-  display: grid;
-  grid-template-columns: 25vw 50vw 25vw;
-  grid-template-rows: 15vh 55vh 30vh;
-  grid-template-areas: ". top ." ". mid ." ". bot .";
-}
-.top {
-  grid-area: top;
   display: flex;
-  justify-content: space-between;
-  border-top: 2vw solid black;
-  border-left: 2vw solid black;
-  border-right: 2vw solid black;
+  justify-content: center;
 }
-.top img {
-  height: 30px;
+.center {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 17vh;
 }
-
+.gamegrid {
+  width: 40vw;
+  height: 80vh;
+  margin-top: 15vh;
+  display: grid;
+  grid-template-columns: 7.5vw 24vw 7.5vw;
+  grid-template-rows: 15vh 50vh 15vh;
+  grid-template-areas:
+    'heads mid tails'
+    '. mid .'
+    '. mid .';
+}
+.logo {
+  width: 25vw;
+  height: auto;
+  margin-bottom: 5vh;
+}
+.button {
+  height: 7vh;
+  width: 12vw;
+}
+.heads {
+  grid-area: heads;
+  color: darkorange;
+  font-size: 25px;
+}
+.tails {
+  grid-area: tails;
+  color: darkorange;
+  font-size: 25px;
+}
 .mid {
   grid-area: mid;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-left: 2vw solid black;
-  border-right: 2vw solid black;
-}
-.mid > img {
-  height: 30vh;
-}
-
-.bot {
-  grid-area: bot;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-left: 2vw solid black;
-  border-right: 2vw solid black;
-  border-bottom: 2vw solid black;
 }
 .coin-icon {
-  background: url("../_img/coin-icon.png") center center cover;
-  height: 20px;
+  background: url('../_img/coin-icon.png') center center / cover no-repeat;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+.coin {
+  max-width: 80%;
+  height: auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+.result {
+  color: darkorange;
+  font-size: 25px;
 }
 .flipping {
   animation-name: flip;
-  animation-duration: 1.5s;
+  animation-duration: 1.2s;
   animation-iteration-count: 1;
 }
 @keyframes flip {
@@ -67,6 +79,6 @@ button {
     transform: scale(1) rotateY(0deg)
   }
   50% {
-    transform: scale(2.5) rotateY(4320deg);
+    transform: scale(1.5) rotateY(4320deg);
   }
 }
